@@ -13,7 +13,7 @@ class Controller(
     val asyncMethod: AsyncMethod
 ) {
 
-    @PostMapping("/add")
+    @PostMapping("/users/event")
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody user: UserCreatedEvent): UserCreatedEvent {
         publisher.publishEvent(user)
@@ -27,7 +27,13 @@ class Controller(
         asyncMethod.execute()
     }
 
-    @PostMapping("/async")
+    @GetMapping("/async/error")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun asyncWithError() {
+        asyncMethod.executeWithError()
+    }
+
+    @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     fun asyncPost(@RequestBody user: UserCreatedEvent): UserCreatedEvent {
 

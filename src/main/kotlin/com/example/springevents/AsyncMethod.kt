@@ -16,8 +16,17 @@ class AsyncMethod {
     }
 
     @Async
+    fun executeWithError() {
+        Thread.sleep(5000)
+
+        throw Exception("Something went wrong")
+    }
+
+    @Async
     fun createUser(user: UserCreatedEvent): Future<UserCreatedEvent> {
         Thread.sleep(5000)
+
+        //throw Exception("Something went wrong")
 
         println("user created")
 
